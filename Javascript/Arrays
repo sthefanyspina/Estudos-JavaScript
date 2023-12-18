@@ -1,0 +1,71 @@
+Armazenar múltiplos valores em uma variável usando arrays - const sandwich = ["peanut butter", "jelly", "bread"];
+
+Aninhar um array em outro array - const teams = [["Bulls", 23], ["White Sox", 45]];
+
+Acessar array de dados com índices - Os índices de um array são escritos na mesma notação com colchetes que as strings usam - const variavel = nomeDoArray[0];
+
+
+
+Modificar dados de array com índices
+
+Ao contrário das strings, as entradas de arrays são mutáveis e podem ser alteradas livremente, mesmo se o array foi declarado com const.
+
+const ourArray = [50, 40, 30];
+
+ourArray[0] = 15;
+
+ourArray agora tem o valor [15, 40, 30].
+
+Observação: não deve haver espaços entre o nome do array e os colchetes, como array [0]. 
+
+
+
+Acessar arrays multidimensionais com índices
+
+Uma maneira de pensar em um array multidimensional é como um array de arrays. 
+
+Quando você usa colchetes para acessar seu array, o primeiro conjunto de colchetes se refere às entradas no array mais exterior (o primeiro nível), e cada par adicional de colchetes refere-se ao próximo nível de entradas interno.
+
+const arr = [
+
+  [1, 2, 3],
+
+  [4, 5, 6],
+
+  [7, 8, 9],
+
+  [[10, 11, 12], 13, 14]
+
+];
+
+const subarray = arr[3];
+
+const nestedSubarray = arr[3][0];
+
+const element = arr[3][0][1];
+
+Neste exemplo, subarray tem o valor de [[10, 11, 12], 13, 14], nestedSubarray tem o valor de [10, 11, 12] e element tem o valor de 11 .
+
+
+
+Manipular arrays e adicionar dados no final de um array com o método push – nomeDoArray.push(parametro);
+
+
+
+Remover um valor do final do array com o método pop, armazenando esse valor removido atribuindo-o a uma variável. – const nomeArray = [ ];
+
+const nomeVariavel = nomeArray.pop();
+
+
+
+Remover o primeiro elemento de arrays com o método shift - const nomeArray = ["Stimpson", "J", ["cat"]];
+
+const nomeArrayRemovido = nomeArray.shift();
+
+
+
+Adicionar elementos ao início de um array com o método unshift - const nomeArray = ["Stimpson", "J", "cat"];
+
+nomeArray.unshift("Happy");
+
+
