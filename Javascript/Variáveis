@@ -1,0 +1,29 @@
+++ - incrementa ou adiciona 1 à variável
+
+-- - decrementa ou diminui 1 à variável
+
++= - adiciona um número a variável
+
+-= - subtrai um número a variável
+
+*= - multiplica um número pela variável
+
+/= - divide um número pela variável
+
+"Alan said, \"Peter is learning JavaScript\"."; - Em JavaScript, você pode escapar uma aspa para que não seja considerada 
+
+como o fim de uma string ao colocar a barra invertida (\) na frente da aspa.
+
+Quando o operador + é usado com um valor de String, ele é chamado de operador de concatenação.
+
+.length - após a variável de string para encontrar o tamanho de um valor de String
+
+pegar a última letra de uma string, você pode subtrair um do tamanho da string.
+
+Nome da variável = variaveldacontagem[0] – encontrar o primeiro caractere em uma string
+
+[variavel.length - 1] - Usar notação de colchetes para encontrar o último caractere em uma string
+
+String são imutáveis, o que significa que elas não podem ser alteradas após serem criadas, a única forma de alterar seria 
+
+atribuindo a ela um novo valor
