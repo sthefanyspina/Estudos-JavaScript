@@ -1,0 +1,123 @@
+Switch
+
+Selecionar entre várias opções com instruções switch
+
+Se você precisar corresponder um valor a muitas opções, pode usar uma instrução switch. 
+
+Uma instrução switch compara o valor a uma instrução de case, que define os diversos valores possíveis. 
+
+Quaisquer instruções JavaScript válidas podem ser executadas dentro de um bloco de case e serão executadas a partir do primeiro valor de case correspondente até que um break seja encontrado.
+
+switch (fruit) {
+
+  case "apple":
+
+    console.log("The fruit is an apple");
+
+    break;
+
+  case "orange":
+
+    console.log("The fruit is an orange");
+
+    break;
+
+}
+
+Valores case são testados com o operador de igualdade estrita (===). 
+
+O break diz ao JavaScript parar interromper a execução das instruções. 
+
+Se o break for omitido, a próxima instrução case será executada.
+
+
+
+Adicionar uma opção padrão em instruções switch
+
+Na instrução switch, você não deve ser capaz de especilficar todos os possíveis valores como instruções case. 
+
+Ao invés disso, você pode adicionar a instrução default, que será executada se nenhuma instrução case correspondente for encontrada.
+
+A instrução default deve ser o último caso.
+
+switch (num) {
+
+  case value1:
+
+    statement1;
+
+    break;
+
+  default:
+
+    defaultStatement;
+
+    break;
+
+}
+
+
+
+Lidar com várias opções idênticas em instruções switch
+
+Se a instrução break for omitida de uma instrução case de um switch, as instruções case seguintes serão executadas até que seja encontrado um break.
+
+Se você tem várias entradas com a mesma saída, você pode representá-las em uma instrução switch da seguinte forma:
+
+let result = "";
+
+switch (val) {
+
+  case 1:
+
+  case 2:
+
+  case 3:
+
+    result = "1, 2, or 3";
+
+    break;
+
+}
+
+Todos os casos para 1, 2 e 3 vão produzir o mesmo resultado.
+
+
+
+Se você tiver muitas opções para escolher, uma instrução switch pode ser mais fácil de escrever do que muitas instruções if/else if encadeadas. O seguinte:
+
+if (val === 1) {
+
+  answer = "a";
+
+} else if (val === 2) {
+
+  answer = "b";
+
+} else {
+
+  answer = "c";
+
+}
+
+pode ser substituído por:
+
+switch (val) {
+
+  case 1:
+
+    answer = "a";
+
+    break;
+
+  case 2:
+
+    answer = "b";
+
+    break;
+
+  default:
+
+    answer = "c";
+
+}
