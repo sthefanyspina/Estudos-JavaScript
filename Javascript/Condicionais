@@ -1,0 +1,484 @@
+Usar lógica condicional com instruções if
+
+Instruções if são usadas para tomar decisões no código.
+
+A palavra-chave if diz ao JavaScript para executar o código nas chaves sob certas condições, definidas nos parênteses. Essas condições são conhecidas como condições Boolean e elas só podem ser true ou false.
+
+Quando a condição for true, o programa executará as instruções dentro das chaves. Quando a condição booleana for false, as instruções dentro das chaves não serão executadas.
+
+function nameOfFunction (myCondition) {
+
+  if (myCondition) {
+
+    return "It was true";
+
+  }
+
+  return "It was false";
+
+}
+
+test(true);
+
+test(false);
+
+test(true) retorna a string It was true e test(false) retorna a string It was false.
+
+Quando test é chamado com o valor true, a instrução if avalia myCondition para verificar se é true ou não. 
+
+Já que é true, a função retorna It was true. 
+
+Quando chamamos test com um valor de false, myCondition não é true, a instrução nas chaves não é executada e a função retorna It was false.
+
+
+
+Comparar com o operador de igualdade
+
+Há muitos operadores de comparação em JavaScript. 
+
+Todos esses operadores retornam um valor booleano true ou false.
+
+O operador mais básico é o operador de igualdade ==. 
+
+O operador de igualdade compara dois valores e retorna true se eles são equivalentes ou false se não são. 
+
+Observe que o operador de igualdade é diferente do operador de atribuição (=), que atribui o valor à direita do operador para uma variável à esquerda.
+
+function equalityTest(myVal) {
+
+  if (myVal == 10) {
+
+    return "Equal";
+
+  }
+
+  return "Not Equal";
+
+}
+
+Se myVal é igual a 10, o operador de igualdade retorna true, assim o código nas chaves será executado e a função retornará Equal. 
+
+Caso contrário, a função retornará Not Equal. 
+
+Para que o JavaScript possa comparar dois tipos de dados diferentes (por exemplo, numbers e strings), deve converter um tipo para outro. 
+
+Isto é conhecido como coerção de tipo (casting ou type coercion). 
+
+No entanto, uma vez que a faça, você pode comparar os termos da seguinte forma:
+
+1   ==  1  // true
+
+1   ==  2  // false
+
+1   == '1' // true
+
+"3" ==  3  // true
+
+
+
+Comparar com o operador de igualdade estrita
+
+Igualdade estrita (===) é a contrapartida do operador de igualdade (==). 
+
+No entanto, ao contrário do operador de igualdade, que tenta converter ambos os valores em comparação a um tipo comum, o operador estrito de igualdade não realiza uma conversão de tipo.
+
+Se os valores que são comparados tiverem valores diferentes, são considerados desiguais, e o operador de igualdade estrito retornará falso.
+
+Exemplos
+
+3 ===  3  // true
+
+3 === '3' // false
+
+No segundo exemplo, 3 é um tipo de Number e '3' é um tipo String.
+
+
+
+Comparar com o operador de desigualdade
+
+O operador de desigualdade (!=) é o oposto do operador de igualdade. 
+
+Significa que não é igual e retorna false onde a igualdade retornaria true e vice-versa. 
+
+Tal como o operador de igualdade, o operador de desigualdade converterá os tipos de dados de valores enquanto compara.
+
+Exemplos
+
+1 !=  2    // true
+
+1 != "1"   // false
+
+1 != '1'   // false
+
+1 != true  // false
+
+0 != false // false
+
+
+
+Comparar com o operador de desigualdade estrita
+
+O operador de desigualdade estrito (!==) é o oposto lógico do operador de igualdade estrito. 
+
+Significa que "não é estritamente igual" e retorna false onde a igualdade estrita retornaria true e vice-versa. 
+
+O operador de desigualdade estrita não converterá tipos de dados.
+
+Exemplos
+
+3 !==  3  // false
+
+3 !== '3' // true
+
+4 !==  3  // true
+
+
+
+Comparar com o operador maior que
+
+O operador maior que (>) compara os valores de dois números. Se o número à esquerda for maior que o número à direita, ele retorna true. Caso contrário, ele retorna false.
+
+Tal como o operador de igualdade, o operador maior que converterá os tipos de dados de valores enquanto compara.
+
+Exemplos
+
+5   >  3  // true
+
+7   > '3' // true
+
+2   >  3  // false
+
+'1' >  9  // false
+
+
+
+Comparar com o operador maior ou igual
+
+O operador maior ou igual que (>=) compara os valores de dois números. Se o número à esquerda é maior ou igual ao número à direita, ele retorna true. Caso contrário, ele retornará false.
+
+Tal como o operador de igualdade, o operador maior que converterá os tipos de dados de valores enquanto compara.
+
+Exemplos
+
+6   >=  6  // true
+
+7   >= '3' // true
+
+2   >=  3  // false
+
+'7' >=  9  // false
+
+
+
+Comparar com o operador menor que
+
+O operador menor que (<) compara os valores de dois números. 
+
+Se o número à esquerda for menos que o número à direita, retornará true. 
+
+Caso contrário, retorna false. Assim como o operador de igualdade, o operador menor que converte os tipos de dados enquanto compara.
+
+Exemplos
+
+2   < 5 // true
+
+'3' < 7 // true
+
+5   < 5 // false
+
+3   < 2 // false
+
+'8' < 4 // false
+
+
+
+Comparar com o operador menor ou igual
+
+O operador menor ou igual (<=) compara os valores de dois números. 
+
+Se o número à esquerda for menor ou igual ao número à direita, retornará true. 
+
+Se o número à esquerda for maior que o número a direita, retornará false. Assim como o operador de igualdade, o operador de menor ou igual que converte os tipos de dados.
+
+Exemplos
+
+4   <= 5 // true
+
+'7' <= 7 // true
+
+5   <= 5 // true
+
+3   <= 2 // false
+
+'8' <= 4 // false
+
+
+
+
+
+Comparar com o operador lógico AND
+
+Às vezes, você precisará testar mais de uma coisa de cada vez. 
+
+O operador lógico AND (&&) retornará true apenas se os operadores à esquerda e à direita forem verdadeiros.
+
+O mesmo efeito pode ser alcançado aninhando uma instrução if dentro de outro if.
+
+if (num > 5) {
+
+  if (num < 10) {
+
+    return "Yes";
+
+  }
+
+}
+
+return "No";
+
+O código retornará Yes se num for maior que 5 e menor que 10. A mesma lógica pode ser escrita com o operador lógico AND.
+
+if (num > 5 && num < 10) {
+
+  return "Yes";
+
+}
+
+return "No";
+
+
+
+
+
+Comparar com o operador lógico OR
+
+O operador lógico OR (||) retorna true se qualquer um dos operandos for true. 
+
+Caso contrário, retorna false.
+
+O operador lógico ou é composto por dois símbolos de pipe: (||). 
+
+O padrão abaixo deve parecer familiar a partir de pontos de passagem anteriores.
+
+if (num > 10) {
+
+  return "No";
+
+}
+
+if (num < 5) {
+
+  return "No";
+
+}
+
+return "Yes";
+
+O código retornará Yes se num estiver entre 5 e 10 (5 e 10 inclusive). 
+
+A mesma lógica pode ser escrita com o operador lógico OR.
+
+if (num > 10 || num < 5) {
+
+  return "No";
+
+}
+
+return "Yes";
+
+
+
+Introduzir instruções else
+
+Quando uma condição para uma instrução if for verdadeira, o bloco de código seguinte será executado. Quando a condição é falsa, normalmente, nada acontece. Com uma instrução else, um bloco de código alternativo pode ser executado.
+
+if (num > 10) {
+
+  return "Bigger than 10";
+
+} else {
+
+  return "10 or Less";
+
+}
+
+
+
+Introduzir instruções else if
+
+Se você tem múltiplas condições que precisam ser resolvidas, você pode encadear as instruções if junto com instruções else if.
+
+if (num > 15) {
+
+  return "Bigger than 15";
+
+} else if (num < 5) {
+
+  return "Smaller than 5";
+
+} else {
+
+  return "Between 5 and 15";
+
+}
+
+
+
+Usar a ordem lógica em instruções if else
+
+A ordem é importante em instruções if e else if.
+
+A função é executada de cima para baixo, então você deve ser cuidadoso com qual instrução vem primeiro.
+
+If – else if – else
+
+
+
+Encadear instruções if else
+
+Instruções if/else podem ser encadeadas por uma lógica complexa. Aqui está o pseudocódigo de várias instruções encadeadas if/else if:
+
+if (condition1) {
+
+  statement1
+
+} else if (condition2) {
+
+  statement2
+
+} else if (condition3) {
+
+  statement3
+
+. . .
+
+} else {
+
+  statementN
+
+}
+
+
+
+Retornar valores booleanos das funções
+
+Às vezes, as pessoas usam uma instrução if/else para fazer uma comparação, dessa forma:	
+
+function isEqual(a, b) {
+
+  if (a === b) {
+
+    return tru
+
+  } else {
+
+    return false;
+
+  }
+
+}
+
+Mas há uma forma melhor de fazer isso. Já que === retorna true ou false, podemos retornar o resultado da comparação:
+
+function isEqual(a, b) {
+
+  return a === b;
+
+}
+
+
+
+Operador Ternário
+
+Usar o operador condicional (ternário)
+
+O operador condicional, também chamado de operador ternário, pode ser usado como uma expressão if-else de uma linha.
+
+A sintaxe é a ? b : c, onde a é a condição, b é o código executado quando a condição retorna true e c é o código executado quando a condição retorna false.
+
+
+
+A função a seguir usa a instrução if/else para verificar uma condição:
+
+function findGreater(a, b) {
+
+  if(a > b) {
+
+    return "a is greater";
+
+  }
+
+  else {
+
+    return "b is greater or equal";
+
+  }
+
+}
+
+
+
+Isto pode ser reescrito usando o operador condicional:
+
+function findGreater(a, b) {
+
+  return a > b ? "a is greater" : "b is greater or equal";
+
+}
+
+
+
+Usar operadores de múltiplas condições (ternários)
+
+No desafio anterior, você usou um único operador condicional. Você também pode encadear eles juntos para verificar por múltiplas condições.
+
+A seguinte função usa as instruções if, else if e else para verificar múltiplas condições:
+
+function findGreaterOrEqual(a, b) {
+
+  if (a === b) {
+
+    return "a and b are equal";
+
+  }
+
+  else if (a > b) {
+
+    return "a is greater";
+
+  }
+
+  else {
+
+    return "b is greater";
+
+  }
+
+}
+
+
+
+A função acima pode ser rescrita usando operadores de múltiplas condições (operador ternário):
+
+function findGreaterOrEqual(a, b) {
+
+  return (a === b) ? "a and b are equal" 
+
+    : (a > b) ? "a is greater" 
+
+    : "b is greater";
+
+}
+
+
+
+É considerada a melhor prática para formatar operadores de múltiplas condições, já que cada condição está em uma linha separada, como mostrado acima. 
+
+Usar operadores de múltiplas condições sem a indentação adequada pode dificultar a leitura do seu código. Por exemplo:
+
+function findGreaterOrEqual(a, b) {
+
+  return (a === b) ? "a and b are equal" : (a > b) ? "a is greater" : "b is greater";
+
+}
+
