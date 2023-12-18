@@ -1,0 +1,593 @@
+Aprender sobre programação funcional
+
+Programação funcional é um estilo de programação em que as soluções são funções simples, isoladas e livres de efeitos colaterais fora do escopo da função: INPUT -> PROCESS -> OUTPUT
+
+
+
+Quando falamos de programação funcional, pensamos em:
+
+
+
+Funções isoladas: nenhuma função depende do estado do programa, incluindo variáveis globais, que podem sofrer mudanças
+
+
+
+Funções puras: a mesma entrada sempre devolve a mesma saída
+
+
+
+Funções com efeitos colaterais limitados: qualquer alteração ou mutação do estado do programa fora da função é cuidadosamente controlada
+
+
+
+Entender a terminologia de programação funcional
+
+Houve uma mudança de humor no time da FCC e os membros agora querem dois tipos de chá: verde e preto. Fato: clientes sofrem mudanças de humor e de opinião frequentemente.
+
+
+
+Por causa disso, precisaremos rever a função getTea do último desafio para lidar com vários pedidos de chá. Podemos modificar a getTea para aceitar uma função como argumento e torná-la capaz de preparar outros tipos de chá. Isso faz com que getTea seja mais flexível e dá mais controle ao programador quando os requisitos do cliente mudam.
+
+
+
+Mas primeiro, vejamos um pouco de terminologia funcional:
+
+
+
+Callbacks são funções que são passadas a outras funções, que decidem quando e como são chamados. Você pode ter visto alguns sendo passados a outros métodos. Em filter, por exemplo, a função de callback diz ao JavaScript qual é o critério para filtrar um array.
+
+
+
+Funções que podem ser atribuídas a variáveis, passadas a outras funções ou retornadas de outra função como qualquer outro valor são chamadas de funções de primeira classe. Em JavaScript, todas as funções são funções de primeira classe.
+
+
+
+As funções que recebem funções como argumentos ou retornam outras funções como valores são chamadas de funções de ordem superior.
+
+
+
+Funções podem ser chamadas de lambda quando passadas para outra função ou retornadas a partir dela.
+
+
+
+Evitar mutações e efeitos colaterais usando programação funcional
+
+Caso você ainda não tenha descoberto, o problema do desafio anterior é com a chamada a splice na função tabClose(). Infelizmente, splice modifica o array original no qual opera e, por isso, a segunda chamada usou o array alterado, nos dando resultados inesperados.
+
+
+
+Este é apenas um pequeno exemplo - você chama uma função e passa uma variável, array ou objeto a ela; a função modifica a variável ou alguma coisa no objeto.
+
+
+
+Um dos principais princípios da programação funcional é que não devemos alterar coisas. Alterações levam a bugs. É mais fácil prever bugs quando se sabe que as funções não mudam nada, nem mesmo os argumentos e as variáveis globais.
+
+
+
+No exemplo anterior não havia nenhuma operação complicada, mas o método splice modificou o array original e o resultado foi um bug.
+
+
+
+Lembre-se de que, em programação funcional, modificar ou alterar coisas é chamado de mutação e a consequência é chamada de efeito colateral. Idealmente, uma função deveria ser uma função pura, que é uma função que não causa efeitos colaterais.
+
+
+
+Vamos tentar dominar esta disciplina e não alterar nenhuma variável ou objeto em nosso código.
+
+
+
+Passar argumentos para evitar dependências externas em funções
+
+No último desafio você deu um passo a mais nos princípios de programação funcional, mas ainda falta algo.
+
+
+
+Nós não mudamos o valor dela, mas a função incrementer não funciona sem a variável global fixedValue.
+
+
+
+Outro princípio da programação funcional é que sempre devemos declarar nossas dependências explicitamente. Isso significa que, se uma função depende de uma variável ou objeto, então devemos passar esta variável ou objeto diretamente como argumento a ela.
+
+
+
+Há muitas boas consequências nesse princípio: a função se torna mais fácil de testar, você sabe exatamente quais são as suas entradas e ela não depende de mais nada no seu programa.
+
+
+
+Isso faz com que você tenha mais confiança ao alterar, remover ou adicionar código, pois sabe o que pode ou não pode alterar e identifica armadilhas em potencial com mais facilidade.
+
+
+
+Finalmente, a função sempre produzirá a mesma saída para o mesmo conjunto de entradas, não importa de onde no código ela é chamada.
+
+
+
+Refatorar variáveis globais fora de funções
+
+Até agora vimos dois princípios diferentes de programação funcional:
+
+
+
+Não altere variáveis ou objetos: crie novas variáveis ou objetos e os retorne, caso necessário, de uma função. Dica: escrever algo como const newArr = arrVar onde arrVar é um array não o copiará para a nova a variável, e sim apenas criará uma nova referência ao mesmo objeto. Então mudar um valor em newArr também o muda em arrVar.
+
+
+
+Declare parâmetros de funções: qualquer computação dentro de uma função depende apenas dos argumentos passados a ela; nunca de uma variável ou objeto global.
+
+
+
+Incrementar um número em um não é tão divertido, mas podemos aplicar esses princípios ao trabalhar com arrays ou objetos mais complexos.
+
+
+
+Usar o método map para extrair dados de um array
+
+Até então nós aprendemos a usar funções puras para evitar efeitos colaterais em um programa. Vimos também que há valor em fazer funções dependerem apenas de suas entradas.
+
+
+
+Este é apenas o começo. Como o nome sugere, programação funcional orbita uma teoria de funções.
+
+
+
+Faz sentido conseguir passar funções como argumento a outras funções e retorná-las de outras funções. Funções são consideradas objetos de primeira classe em JavaScript e podem ser usadas como qualquer outro objeto. Elas podem ser salvas em variáveis, objetos ou passadas como argumento a funções.
+
+
+
+Vamos começar com algumas funções simples de array. Alguns métodos no protótipo de objetos array. Neste exercício estamos de olho em Array.prototype.map(), ou simplesmente map.
+
+
+
+O método map percorre cada item de um array e retorna um novo array cujos elementos são os resultados da chamada da função de callback para cada item. Isso tudo acontece sem modificar o array original.
+
+
+
+A função de callback é chamada com três argumentos. O primeiro argumento é o elemento que está a ser processado. O segundo é o índice deste elemento e o terceiro é o array do qual map foi chamado.
+
+
+
+Abaixo você vê um exemplo do map sendo usado do array users para retornar um novo array apenas com os nomes dos usuários. O exemplo usa apenas o primeiro argumento da função de callback por simplicidade.
+
+
+
+const users = [
+
+  { name: 'John', age: 34 },
+
+  { name: 'Amy', age: 20 },
+
+  { name: 'camperCat', age: 10 }
+
+];
+
+
+
+const names = users.map(user => user.name);
+
+console.log(names);
+
+O console mostraria o valor [ 'John', 'Amy', 'camperCat' ].
+
+
+
+Implementar map em um protótipo
+
+Como você viu ao aplicar Array.prototype.map(), ou simplesmente map() mais cedo, o método map retorna um array do mesmo tamanho que o no qual chamamos o método. Ele também não altera o array original desde que a função de callback não o faça.
+
+
+
+Em outras palavras, map é uma função pura e a sua saída depende somente de suas entradas. Além disso, ele recebe outra função como argumento.
+
+
+
+Você pode aprender muito sobre o método map se você implementá-lo por conta própria. Recomenda-se que você use um loop for ou o método Array.prototype.forEach().
+
+
+
+Usar o método filter para extrair dados de um array
+
+Outra função útil de array é Array.prototype.filter(), ou simplesmente filter().
+
+
+
+filter chama uma função em cada elemento de um array e retorna um novo array contendo apenas os elementos para os quais aquela função retorna um valor verdadeiro - ou seja, um valor que retorna true se passada para o construtor Boolean(). Em outras palavras, ele filtra o array de acordo com a função passada a ele. Ele o faz sem alterar o array original assim como map.
+
+
+
+A função de callback toma três argumentos. O primeiro argumento é o elemento que está a ser processado. O segundo é o índice deste elemento e o terceiro é o array do qual filter foi chamado.
+
+
+
+Abaixo você vê um exemplo do filter sendo usado do array users para retornar um novo array apenas com os usuários cuja idade é menor que 30. O exemplo usa apenas o primeiro argumento da função de callback por simplicidade.
+
+
+
+const users = [
+
+  { name: 'John', age: 34 },
+
+  { name: 'Amy', age: 20 },
+
+  { name: 'camperCat', age: 10 }
+
+];
+
+
+
+const usersUnder30 = users.filter(user => user.age < 30);
+
+console.log(usersUnder30); 
+
+O console mostraria o valor [ { name: 'Amy', age: 20 }, { name: 'camperCat', age: 10 } ].
+
+
+
+
+
+Implementar o método filter em um protótipo
+
+Você pode aprender muito sobre o método filter se você implementá-lo por conta própria. Recomenda-se que você use um loop for ou o método Array.prototype.forEach().
+
+
+
+Array.prototype.myFilter = function(callback) {
+
+  const newArray = [];
+
+for (let i = 0; i < this.length; i++) {
+
+if(callback(this[i], i, this)== true) {
+
+newArray.push(this[i])
+
+}
+
+}
+
+return newArray;
+
+};
+
+
+
+Remover elementos de um array usando slice em vez de splice
+
+É comum precisar remover alguns itens de um array e manter o resto. O JavaScript oferece o método splice, que recebe uma posição de onde começar a remover e o número de elementos para remover como argumentos para isso. Se o segundo argumento for omitido, o padrão é remover todos os itens até o final. No entanto, o método splice modifica o array original em que é chamado. Exemplo:
+
+
+
+const cities = ["Chicago", "Delhi", "Islamabad", "London", "Berlin"];
+
+cities.splice(3, 1);
+
+Aqui splice retorna a string London e a remove do array cities. cities terá o valor ["Chicago", "Delhi", "Islamabad", "Berlin"].
+
+
+
+Como vimos no último desafio, o método slice não altera o array original; ele retorna um novo array que pode ser armazenado em uma variável. Lembre-se de que o método slice toma dois argumentos para os índices de início e fim e retorna um array com os elementos presentes entre esses índices (o índice de fim é não-inclusivo). Usar o método slice em vez do splice ajuda a evitar alterações em arrays e, portanto, efeitos colaterais.
+
+
+
+Combinar dois arrays usando o método concat
+
+Concatenação significa juntar itens de ponta a ponta. Em JavaScript, strings e arrays possuem o método concat e ele funciona igualmente para os dois. Para arrays, o método é chamado em uma instância e um segundo array é passado como argumento. concat então junta os dois arrays em um só. O método retorna um novo array e deixa os dois originais intactos. Exemplo:
+
+
+
+[1, 2, 3].concat([4, 5, 6]);
+
+[1, 2, 3, 4, 5, 6] é o array retornado.
+
+
+
+Adicionar elementos ao final de um array usando concat em vez de push
+
+Programação funcional é basicamente criar e utilizar funções que não modificam os seus argumentos.
+
+
+
+O último desafio mostrou como usar o método concat para criar um novo array a partir da mescla de outros sem modificar os originais. Compare os métodos concat e push. O push adiciona itens ao final do mesmo array a partir do qual ele é chamado. Ele modifica o array. Exemplo:
+
+
+
+const arr = [1, 2, 3];
+
+arr.push(4, 5, 6);
+
+arr teria o valor modificado de: [1, 2, 3, 4, 5, 6], mas não é assim que se faz em programação funcional.
+
+
+
+O  	 nos oferece uma forma de mesclar novos itens ao final de um array sem alterá-lo.
+
+
+
+Usar o método reduce para analisar dados
+
+Array.prototype.reduce(), ou simplesmente reduce(), realiza as operações mais gerais de todas as operações de array em JavaScript. Você pode resolver quase qualquer problema de processamento de array usando o método reduce.
+
+
+
+O método reduce permite formas mais gerais de processamento de array, e é possível mostrar que tanto o filter quanto o map podem ser derivados como aplicações especiais de reduce. O método reduce percorre cada elemento de um array e retorna um valor (uma string, um número, um objeto ou array). Isso pode ser feito através de uma função de callback que é chamada para cada elemento.
+
+
+
+A função de callback recebe quatro argumentos. O primeiro argumento é conhecido como o acumulador, ao qual é atribuído o resultado da função de callback na iteração anterior. O segundo é o elemento a ser processado. O terceiro é o índice do elemento e o quarto é o array do qual reduce foi chamado.
+
+
+
+Além da função de callback, reduce tem um parâmetro adicional que recebe um valor inicial para o acumulador. Se o segundo parâmetro não for usado, então a primeira iteração é ignorada e ao acumulador é atribuído o primeiro elemento do array na segunda iteração.
+
+
+
+Veja abaixo um exemplo usando reduce no array users para retornar a soma de todas as idades de todos os usuários. O exemplo usa apenas os dois primeiros argumentos pela simplicidade.
+
+
+
+const users = [
+
+  { name: 'John', age: 34 },
+
+  { name: 'Amy', age: 20 },
+
+  { name: 'camperCat', age: 10 }
+
+];
+
+
+
+const sumOfAges = users.reduce((sum, user) => sum + user.age, 0);
+
+console.log(sumOfAges);
+
+O console mostra o valor 64.
+
+
+
+No próximo exemplo abaixo, veja como um objeto pode ser retornado contendo os nomes dos usuários como chaves e suas idades como valores.
+
+
+
+const users = [
+
+  { name: 'John', age: 34 },
+
+  { name: 'Amy', age: 20 },
+
+  { name: 'camperCat', age: 10 }
+
+];
+
+
+
+const usersObj = users.reduce((obj, user) => {
+
+  obj[user.name] = user.age;
+
+  return obj;
+
+}, {});
+
+console.log(usersObj);
+
+O console mostra o valor { John: 34, Amy: 20, camperCat: 10 }.
+
+
+
+Ordenar um array alfabeticamente usando o método sort
+
+O método sort consegue ordenar os elementos de um array de acordo com uma função de callback.
+
+
+
+Por exemplo:
+
+
+
+function ascendingOrder(arr) {
+
+  return arr.sort(function(a, b) {
+
+    return a - b;
+
+  });
+
+}
+
+
+
+ascendingOrder([1, 5, 2, 3, 4]);
+
+O código acima retorna [1, 2, 3, 4, 5].
+
+
+
+function reverseAlpha(arr) {
+
+  return arr.sort(function(a, b) {
+
+    return a === b ? 0 : a < b ? 1 : -1;
+
+  });
+
+}
+
+
+
+reverseAlpha(['l', 'h', 'z', 'b', 's']);
+
+Este retorna o valor ['z', 's', 'l', 'h', 'b'].
+
+
+
+O método de ordenação padrão do JavaScript é por valores de ponto Unicode, o que pode nos dar resultados inesperados. Por isso você é encorajado a providenciar uma função de callback para especificar como a ordenação deve ocorrer. Quando tal função callback (comumente chamada de compareFunction, ou função de comparação) é providenciada, os elementos do array são ordenados de acordo com o valor de retorno dela: se compareFunction(a,b) retornar um valor menor que 0 para dois elementos a e b, então a virá antes de b. Se compareFunction(a,b) retornar um valor maior que 0 para dois elementos a e b, então b virá antes de a. Finalmente, se compareFunction(a,b) retornar 0, então a e b não trocarão de lugar entre si.
+
+
+
+Retornar um array ordenado sem modificar o array original
+
+Um efeito colateral do método sort é que ele altera a ordem dos elementos no array original. Em outras palavras, o array sofre uma mutação. Uma forma de evitar isto é primeiro concatenar um array vazio ao array a ordenar (não esqueça que slice e concat retornam um novo array) e, então, executar o método sort no novo array.
+
+
+
+Dividir uma string em um array usando o método split
+
+O método split divide uma string em um array de strings. Ela recebe um delimitador, que pode ser um caractere ou uma expressão regular, como argumento para dividir a string. Por exemplo, se o delimitador for um espaço, você recebe um array de palavras. Se o delimitador for a string vazia, você recebe um array contendo os caracteres da string.
+
+
+
+Abaixo há dois exemplos de uso de split, um separando uma string por espaços, e outro por dígitos usando uma expressão regular:
+
+
+
+const str = "Hello World";
+
+const bySpace = str.split(" ");
+
+
+
+const otherString = "How9are7you2today";
+
+const byDigits = otherString.split(/\d/);
+
+bySpace terá o valor ["Hello", "World"] e byDigits terá o valor ["How", "are", "you", "today"].
+
+
+
+Como strings são imutáveis, o método split facilita o trabalho com elas.
+
+
+
+Transformar um array em uma string usando o método join
+
+O método join é usado para juntar os elementos de um array, resultando em uma string. Ele recebe um delimitador como argumento, que é usado para conectar os elementos na string.
+
+
+
+Exemplo:
+
+
+
+const arr = ["Hello", "World"];
+
+const str = arr.join(" ");
+
+O valor de str é Hello World.
+
+
+
+Usar o método every para checar se todos os elementos em um array atendem a um critério
+
+O método every funciona verificando se todos os elementos de um array passam em um teste. Ele retorna um booleano: true se todos os valores atendem ao critério e false caso contrário.
+
+
+
+Por exemplo, o código a seguir verifica se todos os elementos no array numbers são menores que 10:
+
+
+
+const numbers = [1, 5, 8, 0, 10, 11];
+
+
+
+numbers.every(function(currentValue) {
+
+  return currentValue < 10;
+
+});
+
+O método every retorna false neste exemplo.
+
+
+
+Usar o método some para checar se pelo menos um elemento em um array atende a um critério
+
+O método some funciona verificando se pelo menos um dos elementos de um array passam em um teste. Ele retorna um booleano: true se pelo menos um valor atende ao critério e false caso contrário.
+
+
+
+Por exemplo, o código a seguir verifica se qualquer elemento no array numbers é menor que 10:
+
+
+
+const numbers = [10, 50, 8, 220, 110, 11];
+
+
+
+numbers.some(function(currentValue) {
+
+  return currentValue < 10;
+
+});
+
+O método some retorna true.
+
+
+
+Iniciar com currying e aplicação parcial
+
+A aridade de uma função é o número de argumentos que ela toma. Realizar currying em uma função significa transformar uma função de aridade N em N funções de aridade 1.
+
+
+
+Em outras palavras, a função é reestruturada para que ela receba apenas um argumento e retorne outra função que recebe o próximo argumento e assim por diante.
+
+
+
+Exemplo:
+
+
+
+function unCurried(x, y) {
+
+  return x + y;
+
+}
+
+
+
+function curried(x) {
+
+  return function(y) {
+
+    return x + y;
+
+  }
+
+}
+
+
+
+const curried = x => y => x + y
+
+
+
+curried(1)(2)
+
+curried(1)(2) retornaria 3.
+
+
+
+Isso é útil em seu programa quando você não pode fornecer todos os argumentos para uma função de uma só vez. Você pode salvar cada chamada de função em uma variável, que será uma referência à função retornada que recebe o próximo argumento quando ele estiver disponível. Um exemplo usando a função do exemplo acima:
+
+
+
+const funcForY = curried(1);
+
+console.log(funcForY(2)); // 3
+
+Da mesma forma, aplicação parcial pode ser descrita como a aplicação de alguns argumentos a uma função e o retorno de outra função à qual é aplicada a mais argumentos. Exemplo:
+
+
+
+function impartial(x, y, z) {
+
+  return x + y + z;
+
+}
+
+
+
+const partialFn = impartial.bind(this, 1, 2);
+
+partialFn(10); // 13
