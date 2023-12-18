@@ -1,0 +1,123 @@
+Usar a exportação para compartilhar um bloco de código
+
+Imagine um arquivo chamado math_functions.js que contém várias funções relacionadas a operações matemáticas. Uma delas é armazenada em uma variável, add, que recebe dois números e retorna a soma deles. Você quer usar essa função em diversos arquivos JavaScript diferentes. Para compartilhá-las com esses outros arquivos, você primeiro precisa exportá-las (export).
+
+export const add = (x, y) => {
+
+  return x + y;
+
+}
+
+
+
+Acima está uma forma comum de exportar uma única função, mas você pode alcançar a mesma coisa da seguinte forma:
+
+const add = (x, y) => {
+
+  return x + y;
+
+}
+
+export { add };
+
+
+
+Quando você exporta uma variável ou função, você pode importá-las em outro arquivo e usá-las sem ter de rescrever o código. 
+
+Você pode exportar várias coisas ao repetir o primeiro exemplo para cada coisa que você queira exportar, ou ao colocar todas elas em uma instrução de export do segundo exemplo, da seguinte forma:
+
+export { add, subtract };
+
+
+
+Reutilizar código JavaScript usando import
+
+import te permite escolher quais partes carregar de um arquivo ou módulo. Na lição anterior, os exemplos exportaram a função add do arquivo math_functions.js. Você pode importá-la e usá-la em outro arquivo assim:
+
+import { add } from './math_functions.js';
+
+
+
+Aqui, import encontrará a função add no arquivo math_functions.js, importar apenas essa função e ignorar o resto. 
+
+O ./ diz ao import para procurar pelo arquivo math_functions.js no mesmo diretório que o arquivo atual. 
+
+O caminho relativo do arquivo (./) e a extensão do arquivo (.js) são necessários ao usar import dessa forma.
+
+Você pode importar mais de um item do arquivo ao adicioná-los na instrução import dessa forma:
+
+import { add, subtract } from './math_functions.js';
+
+
+
+Usar * para importar tudo de um arquivo
+
+Suponha que você tem um arquivo e deseja importar todo o conteúdo dele no arquivo atual. 
+
+Isso pode ser feito com a sintaxe import * as. 
+
+Aqui está um exemplo onde todo o conteúdo de um arquivo chamado math_function.js é importado em um arquivo no mesmo diretório:
+
+
+
+import * as myMathModule from "./math_functions.js";
+
+A instrução import acima criará um objeto chamado myMathModule. Esse nome é totalmente arbitrário. Você pode escolher qualquer outro nome que seja apropriado para sua aplicação.
+
+ O objeto conterá todas as exportações do arquivo math_functions.js. 
+
+Dessa forma, você pode acessar as funções exportadas da mesma forma que você acessa as propriedades de um objeto. 
+
+Aqui está um exemplo de como você pode usar as funções add e subtract que foram importadas:
+
+myMathModule.add(2,3);
+
+myMathModule.subtract(5,3);
+
+
+
+Exportar apenas um valor com export default
+
+Na lição de export você aprendeu sobre a sintaxe que chamamos de exportação nomeada. 
+
+Naquela lição você exportou múltiplas funções e variáveis que ficaram disponíveis para utilização em outros arquivos.
+
+Há outra sintaxe para export que você precisa saber, conhecida como exportação padrão. 
+
+Você usará essa sintaxe quando apenas um valor estiver sendo exportado de um arquivo ou módulo. 
+
+Essa sintaxe também é usada para exportar um valor substituto caso o valor original não possa ser exportado.
+
+Abaixo estão exemplos utilizando a sintaxe export default:
+
+export default function add(x, y) {
+
+  return x + y;
+
+}
+
+export default function(x, y) {
+
+  return x + y;
+
+}
+
+
+
+Importar uma exportação padrão
+
+No último desafio, você aprendeu sobre export default e seus usos. 
+
+Para importar uma exportação padrão, você precisa usar uma sintaxe diferente de import. 
+
+No exemplo a seguir, add é a exportação padrão do arquivo math_functions.js. Veja como importá-la:
+
+import add from "./math_functions.js";
+
+A sintaxe é diferente em apenas um ponto. 
+
+O valor importado, add, não está rodeado por chaves ({}). 
+
+Aqui, add é simplesmente uma palavra qualquer que vai ser usada para identificar a variável sendo exportada do arquivo math_functions.js. 
+
+Você pode usar qualquer nome ao importar algo que foi exportado como padrão.
