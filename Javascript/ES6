@@ -1,0 +1,773 @@
+Comparar escopos das palavras-chave var e let
+
+Quando você declara uma variável com a palavra-chave var, ela é declarada globalmente, ou localmente se declarada dentro de uma função.
+
+A palavra-chave let se comporta de forma similar, mas com alguns recursos extras. 
+
+Quando você declara a variável com a palavra-chave let dentro de um bloco, declaração, ou expressão, seu escopo é limitado ao bloco, declaração, ou expressão.
+
+
+
+Por exemplo:
+
+var numArray = [];
+
+for (var i = 0; i < 3; i++) {
+
+  numArray.push(i);
+
+}
+
+console.log(numArray);
+
+console.log(i);
+
+Aqui o console vai exibir os valores [0, 1, 2] e 3.
+
+
+
+Com a palavra-chave var, i é declarado globalmente. Então quando i++ é executado, ele atualiza a variável global. 
+
+Esse código é semelhante ao seguinte:
+
+var numArray = [];
+
+var i;
+
+for (i = 0; i < 3; i++) {
+
+  numArray.push(i);
+
+}
+
+console.log(numArray);
+
+console.log(i);
+
+Aqui o console vai exibir os valores [0, 1, 2] e 3.
+
+
+
+Este comportamento causará problemas se você criasse uma função e armazená-la para depois utilizar dentro de um laço for que utiliza a variável i. 
+
+Isso se deve ao fato da função armazenada sempre vai se referir ao valor da variável global i atualizada.
+
+
+
+var printNumTwo;
+
+for (var i = 0; i < 3; i++) {
+
+  if (i === 2) {
+
+    printNumTwo = function() {
+
+      return i;
+
+    };
+
+  }
+
+}
+
+console.log(printNumTwo());
+
+Aqui o console vai exibir o valor 3.
+
+
+
+Como você pode ver, printNumTwo() exibe 3 e não 2. Isso se deve ao fato do valor atribuído a i foi atualizado e printNumTwo() retorna a variável global i e não o valor que i tinha quando a função foi criada dentro do laço for. 
+
+A palavra-chave let não segue este comportamento:
+
+let printNumTwo;
+
+for (let i = 0; i < 3; i++) {
+
+  if (i === 2) {
+
+    printNumTwo = function() {
+
+      return i;
+
+    };
+
+  }
+
+}
+
+console.log(printNumTwo());
+
+console.log(i);
+
+Aqui o console vai exibir o valor 2, e um erro que i is not defined (i não foi definida).
+
+
+
+i não foi definida porque não foi declarada no escopo global. 
+
+Ela é declarada apenas dentro da declaração do laço for. printNumTwo() retornou o valor correto porque três variáveis i distintas com valores únicos (0, 1 e 2) foram criadas com a palavra-chave let dentro da declaração do laço.
+
+
+
+Modificar um array declarado com const
+
+Alguns desenvolvedores preferem criar todas suas variáveis usando const, a menos que eles saibam que vão precisar reatribuir o valor. Apenas nesse caso, eles usam let.
+
+No entanto, é importante entender que objetos (incluindo arrays e funções) atribuídos a uma variável usando const ainda são mutáveis. Usar a declaração const só impede a reatribuição do identificador (nome) da variável.
+
+const s = [5, 6, 7];
+
+s = [1, 2, 3];
+
+s[2] = 45;
+
+console.log(s);
+
+s = [1, 2, 3] resultará em um erro. 
+
+Depois de comentar essa linha, o console.log exibirá o valor [5, 6, 45].
+
+Como você pode ver, você pode alterar o objeto [5, 6, 7] e a variável s ainda apontará para o array alterado [5, 6, 45]. 
+
+Assim como em qualquer outro array, os elementos dentro de s também são mutáveis. 
+
+Mas como const foi usado, você não pode usar o identificador da variável s para apontar para uma matriz diferente (ou qualquer outro valor) usando o operador de atribuição.
+
+
+
+Impedir a modificação de um objeto
+
+Como visto no desafio anterior, a declaração const sozinha, na verdade, não protege a mutação de seus dados. 
+
+Para garantir que seus dados não mudem, o JavaScript fornece a função Object.freeze que previne os dados de serem modificados.
+
+Qualquer tentativa de alterar o objeto será rejeitada, com um erro sendo lançado se o script estiver executando em modo estrito.
+
+let obj = {
+
+  name:"FreeCodeCamp",
+
+  review:"Awesome"
+
+};
+
+Object.freeze(obj);
+
+obj.review = "bad";
+
+obj.newProp = "Test";
+
+console.log(obj); 
+
+As atribuições obj.review e obj.newProp vão resultar em erros, pois nosso editor executa em modo estrito por padrão. 
+
+O console vai exibir o valor { name: "FreeCodeCamp", review: "Awesome" }.
+
+
+
+Criar funções anônimas com arrow functions
+
+No JavaScript, muitas vezes não precisamos nomear nossas funções, especialmente quando passamos uma função como argumento para outra função. 
+
+Em vez disso, criamos funções anônimas. Como não vamos reutilizar essas funções posteriormente, não precisamos nomeá-las.
+
+Para fazer isso, geralmente usamos a seguinte sintaxe:
+
+const myFunc = function() {
+
+  const myVar = "value";
+
+  return myVar;
+
+}
+
+ES6 nos fornece um syntatical sugar onde não precisamos escrever funções anônimas como no exemplo acima. 
+
+Ao invés disso, você pode usar a sintaxe arrow function:
+
+const myFunc = () => {
+
+  const myVar = "value";
+
+  return myVar;
+
+}
+
+Quando a função executa apenas uma linha de código ou retorna apenas um valor, a sintaxe de arrow function nos permite omitir a palavra-chave return assim como as chaves ao redor do código. 
+
+Essa abordagem ajuda a criar funções menores em instruções de uma linha:
+
+const myFunc = ( ) => "value";
+
+Esse código ainda retornará a string value por padrão.
+
+
+
+Escrever arrow functions com parâmetros
+
+Assim como uma função normal, você pode passar argumentos para uma arrow function.
+
+const doubler = (item) => item * 2;
+
+doubler(4);
+
+doubler(4) retornaria o valor 8.
+
+
+
+Se uma arrow function tiver um único parâmetro, os parênteses envolvendo o parâmetro podem ser omitidos.
+
+const doubler = item => item * 2;
+
+
+
+É possível passar mais de um argumento para uma arrow function.
+
+const multiplier = (item, multi) => item * multi;
+
+multiplier(4, 2);
+
+multiplier(4, 2) retornaria o valor 8.
+
+
+
+Definir um valor padrão para o parâmetro de uma função
+
+Para nos ajudar a criar funções mais flexíveis, a versão ES6 introduziu os parâmetros padrão para funções.
+
+
+
+Confira este código:
+
+const greeting = (name = "Anonymous") => "Hello " + name;
+
+
+
+console.log(greeting("John"));
+
+console.log(greeting());
+
+O console exibirá as strings Hello John e Hello Anonymous.
+
+
+
+O parâmetro padrão é usado quando o argumento não é especificado (ele não é definido). 
+
+Como você pode ver no exemplo acima, o parâmetro name receberá o valor padrão Anonymous quando você não fornecer um valor para o parâmetro. 
+
+Você pode adicionar valores padrão para quantos parâmetros quiser.
+
+
+
+Usar o parâmetro rest com parâmetros de função
+
+Para nos ajuda a criar funções mais flexíveis, ES6 introduziu o parâmetro rest para parâmetros de funções. 
+
+Com o parâmetro rest, você pode criar funções que recebem um número variável de argumentos. 
+
+Esses argumentos são armazenados em um array que pode ser acessado depois dentro da função.
+
+
+
+Verifique esse código:
+
+function howMany(...args) {
+
+  return "You have passed " + args.length + " arguments.";
+
+}
+
+console.log(howMany(0, 1, 2));
+
+console.log(howMany("string", null, [1, 2, 3], { }));
+
+O console exibiria as strings You have passed 3 arguments e `You have passed 4 arguments..
+
+
+
+O parâmetro rest elimina a necessidade de usar o objeto arguments` e nos permite usar métodos de array no array de parâmetros passados para a função `howMany`.
+
+
+
+Usar o operador spread para avaliar arrays na hora
+
+ES6 introduz o operador spread, o qual nos permite expandir arrays e outras expressões no lugar aonde é esperado diversos parâmetros ou elementos.
+
+
+
+O código em ES5 abaixo usa apply() para calcular o valor máximo de um array:
+
+var arr = [6, 89, 3, 45];
+
+var maximus = Math.max.apply(null, arr);
+
+maximus teria o valor de 89.
+
+
+
+Tivemos de usar Math.max.apply(null, arr) porque Math.max(arr) retorna NaN. Math.max() espera argumentos separados por vírgula, mas não um array. 
+
+O operador spread torna essa sintaxe muito mais legível e mais fácil de manter.
+
+
+
+const arr = [6, 89, 3, 45];
+
+const maximus = Math.max(...arr);
+
+maximus teria o valor de 89.
+
+
+
+...arr retorna um array descompactado. 
+
+Em outras palavras, ele espalha (spreads) o array. 
+
+No entanto, o operador spread apenas funciona no local, como em um argumento para uma função ou em um array literal. 
+
+O código a seguir não funcionará:
+
+const spreaded = ...arr;
+
+
+
+Usar atribuição de desestruturação para extrair valores de objetos
+
+Atribuição de desestruturação é uma sintaxe especial introduzida na ES6, para atribuir nitidamente valores retirados diretamente de um objeto.
+
+
+
+Considere o seguinte código ES5:
+
+const user = { name: 'John Doe', age: 34 };
+
+
+
+const name = user.name;
+
+const age = user.age;
+
+name teria o valor da string John Doe e age teria o número 34.
+
+
+
+Aqui está uma instrução de atribuição equivalente usando a sintaxe de desestruturação ES6:
+
+const { name, age } = user;
+
+Novamente, name teria o valor da string John Doe e age teria o número 34.
+
+
+
+Aqui, as variáveis name e age serão criadas e atribuídas a elas os valores de seus respectivos valores do objeto user. Você pode ver que fica muito mais limpo.
+
+Você pode extrair quantos valores do objeto quanto você quer.
+
+
+
+Usar atribuição de desestruturação para atribuir variáveis de objetos
+
+Desestruturar o permite atribuir um novo nome de variável quando extrair valores. 
+
+Você pode fazer isso ao colocar o novo nome após dois pontos quando atribuir o valor.
+
+
+
+Usando o mesmo objeto do exemplo anterior:
+
+const user = { name: 'John Doe', age: 34 };
+
+
+
+Aqui está como você pode dar novos nomes a variáveis na atribuição:
+
+const { name: userName, age: userAge } = user;
+
+
+
+Você pode lê-lo como "pegue o valor de user.name e atribua-o a uma nova variável chamada userName" e assim em diante. 
+
+O valor de userName seria a string John Doe e o valor de userAge seria o número 34.
+
+
+
+Usar atribuição de desestruturação para atribuir variáveis de objetos aninhados
+
+Você pode usar os mesmos princípios das últimas duas lições para desestruturar valores de objetos aninhados.
+
+Usando um objeto similar aos exemplos anteriores:
+
+
+
+const user = {
+
+  johnDoe: { 
+
+    age: 34,
+
+    email: 'johnDoe@freeCodeCamp.com'
+
+  }
+
+};
+
+
+
+Aqui está como extrair valores de propriedades de objetos e atribuí-los a variáveis com o mesmo nome:
+
+const { johnDoe: { age, email }} = user;
+
+
+
+E aqui está como você pode atribuir o valor de uma propriedade de um objeto para variáveis com nomes diferentes:
+
+const { johnDoe: { age: userAge, email: userEmail }} = user;
+
+
+
+Usar atribuição de desestruturação para atribuir variáveis a partir de arrays
+
+ES6 torna desestruturar arrays tão fácil quanto desestruturar objetos.
+
+Uma diferença chave entre o operador spread (...) e a desestruturação de array é que o operador spread retira todos os conteúdos de um array e coloca em uma lista com elementos separados por vírgula. 
+
+Consequentemente, você não pode pegar ou escolher quais elementos você quer atribuir a variáveis.
+
+Desestruturar um array nos permite fazer exatamente isso:
+
+
+
+const [a, b] = [1, 2, 3, 4, 5, 6];
+
+console.log(a, b);
+
+O console exibirá os valores de a e b como 1, 2.
+
+
+
+É atribuída à variável a o primeiro valor do array, e à variável b é atribuído o segundo valor do array. 
+
+Nós também podemos acessar o valor em qualquer índice de um array com desestruturação ao usar vírgulas para alcançar o índice desejado:
+
+const [a, b,,, c] = [1, 2, 3, 4, 5, 6];
+
+console.log(a, b, c);
+
+O console exibirá os valores de a, b e c como 1, 2, 5.
+
+
+
+Desestruturação por meio de elementos com rest
+
+Em algumas situações envolvendo um array desestruturado, podemos querer coletar o resto dos elementos em um array separado.
+
+O resultado é similar a Array.prototype.slice(), como mostrado abaixo:
+
+const [a, b, ...arr] = [1, 2, 3, 4, 5, 7];
+
+console.log(a, b);
+
+console.log(arr);
+
+O console exibiria os valores 1, 2 e [3, 4, 5, 7].
+
+As variáveis a e b pegam o primeiro e o segundo valores do array. 
+
+Depois disso, por causa da presença da sintaxe do rest, arr pega o resto dos valores na forma de um array. 
+
+O elemento rest só funciona corretamente como a última variável na lista. 
+
+De momento, você não pode usar a sintaxe do rest para capturar um sub-array que deixa de fora o último elemento do array original.
+
+
+
+Usar atribuição de desestruturação para passar um objeto como parâmetro de uma função
+
+Em alguns casos, você pode desestruturar um objeto no próprio argumento da função.
+
+Considere o código abaixo:
+
+const profileUpdate = (profileData) => {
+
+  const { name, age, nationality, location } = profileData;
+
+}
+
+Isso desestrutura efetivamente o objeto enviado para a função. Isso também pode ser feito no lugar:
+
+const profileUpdate = ({ name, age, nationality, location }) => {
+
+}
+
+Quando profileData é passado para a função acima, os valores são desestruturados do parâmetro da função para ser usado dentro da função.
+
+
+
+
+
+Criar strings usando template literals
+
+Um novo recurso introduzido na versão ES6 é o template literal. 
+
+Esse é um tipo especial de string que torna mais fácil a criação de strings complexas.
+
+Template literals nos permitem criar strings de mais de uma linha e usar os recursos de interpolação de strings.
+
+
+
+Considere o código abaixo:
+
+const person = {
+
+  name: "Zodiac Hasbro",
+
+  age: 56
+
+};
+
+
+
+const greeting = `Hello, my name is ${person.name}!
+
+I am ${person.age} years old.`;
+
+console.log(greeting);
+
+O console vai exibir as strings Hello, my name is Zodiac Hasbro! e I am 56 years old..
+
+
+
+Primeiro, o exemplo utiliza crases (ou backticks, em inglês, `), ao invés de aspas (' ou "), ao redor da string. 
+
+Segundo, note que a string tem mais de uma linha, tanto no código quanto na saída. 
+
+Isso torna desnecessário inserir \n dentro das strings. 
+
+A sintaxe ${variable} usada acima é um espaço reservado (placeholder). 
+
+Basicamente, você não terá mais que usar concatenação com o operador +. 
+
+Para adicionar o valor de uma variável à string, você a envolve com ${ e }. 
+
+Além de poder usar variáveis, você pode incluir outras expressões. Como por exemplo ${a + b}. 
+
+Essa nova maneira de criar strings te dá mais flexibilidade na hora de criar string complexas.
+
+
+
+Escrever declarações literais de objetos concisas usando a forma abreviada de propriedade de objeto
+
+ES6 adiciona alguns suportes legais para facilmente definir literais de objetos.
+
+
+
+Considere o seguinte código:
+
+
+
+const getMousePosition = (x, y) => ({
+
+  x: x,
+
+  y: y
+
+});
+
+getMousePosition é uma função simples que retorna um objeto contendo duas propriedades. 
+
+ES6 fornece o açúcar sintático para eliminar a redundância de ter de escrever x: x. 
+
+Você pode simplesmente escrever x uma vez, e será convertido para x: x (ou algo equivalente). 
+
+Aqui está a mesma função que acima rescrita para usar a nova sintaxe:
+
+const getMousePosition = (x, y) => ({ x, y });
+
+
+
+Escrever funções declarativas concisas com ES6
+
+Ao definir funções dentro de objetos em ES5, nós temos de usar a palavra-chave function como se segue:
+
+const person = {
+
+  name: "Taylor",
+
+  sayHello: function() {
+
+    return `Hello! My name is ${this.name}.`;
+
+  }
+
+};
+
+Com ES6, você pode remover a palavra-chave function e dois pontos ao definir funções em objetos. 
+
+Aqui está um exemplo dessa sintaxe:
+
+const person = {
+
+  name: "Taylor",
+
+  sayHello() {
+
+    return `Hello! My name is ${this.name}.`;
+
+  }
+
+};
+
+
+
+Usar a sintaxe de classe para criar uma função construtora
+
+ES6 fornece uma nova sintaxe para criar objetos, usando a palavra-chave class.
+
+No ES5, um objeto pode ser criado definindo uma função constructor e usando a palavra-chave new para instanciar o objeto.
+
+No ES6, uma declaração de class tem um método constructor, que é invocado com a palavra-chave new. 
+
+Se o método constructor não for explicitamente definido, ele será definido implicitamente sem argumentos.
+
+// Explicit constructor
+
+class SpaceShuttle {
+
+  constructor(targetPlanet) {
+
+    this.targetPlanet = targetPlanet;
+
+  }
+
+  takeOff() {
+
+    console.log("To " + this.targetPlanet + "!");
+
+  }
+
+}
+
+
+
+// Implicit constructor 
+
+class Rocket {
+
+  launch() {
+
+    console.log("To the moon!");
+
+  }
+
+}
+
+
+
+const zeus = new SpaceShuttle('Jupiter');
+
+// prints To Jupiter! in console
+
+zeus.takeOff();
+
+
+
+const atlas = new Rocket();
+
+// prints To the moon! in console
+
+atlas.launch();
+
+
+
+Deve ser notado que a palavra-chave class declara uma nova função, para qual um construtor é adicionado. 
+
+Esse construtor é invocado quando new é chamado na criação de um novo objeto.
+
+
+
+Observação: UpperCamelCase (observe a primeira letra de cada palavra em maiúsculo) deve ser usado por convenção para nomes de classe no ES6, como em SpaceShuttle usado acima.
+
+O método constructor é um método especial usado para inicializar um objeto criado com uma classe. 
+
+Você aprenderá mais sobre isso na seção Programação Orientada a Objetos da Certificação de Algoritmos e Estruturas de Dados JavaScript.
+
+
+
+Usar getters e setter para controlar acesso a um objeto
+
+Você pode obter valores de um objeto e definir o valor da propriedade dentro de um objeto.
+
+Esses são classicamente chamados de getters e setters.
+
+Funções getter tem a finalidade de simplesmente retornar (get) o valor de uma variável privada de um objeto para o usuário sem que o usuário acesse diretamente a variável privada.
+
+Funções setter tem a finalidade de modificar, ou definir (set), o valor de uma variável privada de um objeto baseado no valor passado dentro da função setter. 
+
+Essa mudança poderia envolver cálculos, ou até sobrescrever completamente o valor anterior.
+
+class Book {
+
+  constructor(author) {
+
+    this._author = author;
+
+  }
+
+  // getter
+
+  get writer() {
+
+    return this._author;
+
+  }
+
+  // setter
+
+  set writer(updatedAuthor) {
+
+    this._author = updatedAuthor;
+
+  }
+
+}
+
+const novel = new Book('anonymous');
+
+console.log(novel.writer);
+
+novel.writer = 'newAuthor';
+
+console.log(novel.writer);
+
+O console exibirá as strings anonymous e newAuthor.
+
+
+
+Note a sintaxe usada para invocar o getter e setter. 
+
+Eles nem sequer se parecem com funções. 
+
+Getters e setters são importantes porque escondem os detalhes internos da implementação.
+
+Observação: é uma convenção preceder o nome de uma variável privada com um underscore (_). 
+
+No entanto, essa prática por si só não torna uma variável privada.
+
+
+
+Separar seus scripts em módulos
+
+O JavaScript nasceu com o objetivo de cumprir um pequeno papel em uma web onde tudo era, na maior parte, HTML. 
+
+Hoje, o JavaScript é gigante. Para se ter noção, alguns websites são construídos quase que inteiramente em JavaScript. 
+
+A fim de tornar o JavaScript mais modular, limpo e passível de manutenção, a versão ES6 introduziu uma forma mais simples de compartilhar códigos entre arquivos JavaScript. 
+
+Dessa forma, você consegue exportar partes de um arquivo e usá-los em arquivos externos bem como importar as partes de que você precisa. Para tirar proveito dessa funcionalidade, você precisa criar uma tag script com o atributo type de valor module no seu documento HTML. Exemplo:
+
+
+
+<script type="module" src="filename.js"></script>
+
+O script do exemplo acima agora é um módulo (module) e pode usar os recursos import e export (você aprenderá sobre eles nos próximos desafios).
