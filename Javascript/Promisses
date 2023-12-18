@@ -1,0 +1,85 @@
+Criar uma promessa em JavaScript
+
+Uma promessa em JavaScript é exatamente o que parece - você faz a promessa de que vai fazer uma tarefa, geralmente de forma assíncrona. 
+
+Quando a tarefa é finalizada, ou você cumpriu a promessa ou falhou ao tentar. 
+
+Por ser uma função construtora, você precisa utilizar a palavra-chave new para criar uma Promise. 
+
+Ela recebe uma função, como seu argumento, com dois parâmetros - resolve e reject. 
+
+Esses métodos são usados para determinar o resultado da promessa. A sintaxe se assemelha a:
+
+const myPromise = new Promise((resolve, reject) => {
+
+});
+
+
+
+Concluir uma promessa com resolve e reject
+
+Uma promessa possui três estados: pendente (pending), cumprida (fulfilled) e rejeitada (rejected). 
+
+A promessa que você criou no desafio anterior está presa no estado pending para sempre porque você não adicionou uma forma de concluir a promessa. 
+
+Os parâmetros resolve e reject passados para o argumento da promessa servem para este propósito. 
+
+resolve é utilizado quando a promessa for bem-sucedida, enquanto reject é utilizado quando ela falhar. 
+
+Ambos são métodos que recebem apenas um argumento, como no exemplo abaixo.
+
+const myPromise = new Promise((resolve, reject) => {
+
+  if(condition here) {
+
+    resolve("Promise was fulfilled");
+
+  } else {
+
+    reject("Promise was rejected");
+
+  }
+
+});
+
+O exemplo acima usa strings como argumento desses métodos, mas você pode passar qualquer outro tipo de dado. 
+
+Geralmente, é passado um objeto para esses métodos. 
+
+Assim você pode acessar as propriedades deste objeto e usá-las em seu site ou em qualquer outro lugar.
+
+
+
+Manipular uma promessa cumprida usando o then
+
+Promessas são úteis quando você tem um processo que leva uma quantidade de tempo desconhecido para ser finalizado (ou seja, algo assíncrono). 
+
+Muitas vezes, uma requisição a um servidor. 
+
+Fazer uma requisição a um servidor leva tempo, e após a requisição ser finalizada, você geralmente quer fazer algo com a resposta retornada. 
+
+Isso pode ser feito usando o método then. 
+
+O método then é executado imediatamente após a promessa ser cumprida com resolve. Exemplo:
+
+myPromise.then(result => {
+
+
+
+});
+
+O parâmetro result vem do argumento dado ao método resolve.
+
+
+
+Manipular uma promessa rejeitada usando o catch
+
+catch é o método usado quando a promessa é rejeitada. Ele é executado imediatamente após o método reject da promessa ser chamado. Aqui está a sintaxe:
+
+myPromise.catch(error => {
+
+
+
+});
+
+O parâmetro error é o argumento passado para o método reject.
