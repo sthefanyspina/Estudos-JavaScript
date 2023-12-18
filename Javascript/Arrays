@@ -52,6 +52,7 @@ Manipular arrays e adicionar dados no final de um array com o método push – n
 
 
 
+
 Remover um valor do final do array com o método pop, armazenando esse valor removido atribuindo-o a uma variável. – const nomeArray = [ ];
 
 const nomeVariavel = nomeArray.pop();
@@ -69,3 +70,56 @@ Adicionar elementos ao início de um array com o método unshift - const nomeArr
 nomeArray.unshift("Happy");
 
 
+Acessar arrays aninhados
+
+Como vimos em exemplos anteriores, objetos podem conter tanto objetos aninhados quanto arrays aninhados. 
+
+Semelhante ao acesso de objetos aninhados, a notação de colchetes pode ser encadeada para se acessar arrays aninhados.
+
+Aqui está um exemplo de como se acessar um array aninhado:
+
+const ourPets = [
+
+  {
+
+    animalType: "cat",
+
+    names: [
+
+      "Meowzer",
+
+      "Fluffy",
+
+      "Kit-Cat"
+
+    ]
+
+  },
+
+  {
+
+    animalType: "dog",
+
+    names: [
+
+      "Spot",
+
+      "Bowser",
+
+      "Frankie"
+
+    ]
+
+  }
+
+];
+
+
+
+ourPets[0].names[1];
+
+ourPets[1].names[0];
+
+
+
+ourPets[0].names[1] seria a string Fluffy e ourPets[1].names[0] seria a string Spot.
