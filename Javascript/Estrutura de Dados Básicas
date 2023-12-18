@@ -1,0 +1,352 @@
+Remover itens usando splice()
+
+Splice() nos permite remover qualquer número de elementos consecutivos de qualquer lugar no array.
+
+splice pode receber 3 parâmetros, mas por agora, nós focaremos apenas nos 2 primeiros. 
+
+Os dois primeiros parâmetros de splice() são inteiros que representam índices, ou posições, dos itens no array para o qual o método splice() está sendo chamado. 
+
+Lembre-se: arrays são indexados a zero. 
+
+O primeiro parâmetro de splice() representa o índice no array do qual começar a remover elementos, enquanto o segundo parâmetro indica o número de elementos a serem removidos. 
+
+Por exemplo:
+
+let array = ['today', 'was', 'not', 'so', 'great'];
+
+array.splice(2, 2);
+
+Aqui, nós removemos 2 elementos, começando com o terceiro elemento (no índice 2). array teria o valor ['today', 'was', 'great'].
+
+splice() não apenas modifica o array do qual está sendo chamado, mas também retorna um novo array contendo os valores dos elementos removidos:
+
+let array = ['I', 'am', 'feeling', 'really', 'happy'];
+
+let newArray = array.splice(3, 2);
+
+newArray tem o valor ['really', 'happy'].
+
+
+
+Adicionar itens usando splice()
+
+Você se lembra de quando mencionamos no último desafio que splice() pode receber até três parâmetros? 
+
+Bem, você pode usar o terceiro parâmetro, composto por um ou mais elementos, para adicionar algo ao array. 
+
+Isso pode ser incrivelmente útil para mudar rapidamente de um elemento, ou um conjunto de elementos, para outro.
+
+const numbers = [10, 11, 12, 12, 15];
+
+const startIndex = 3;
+
+const amountToDelete = 1;
+
+numbers.splice(startIndex, amountToDelete, 13, 14);
+
+console.log(numbers);
+
+A segunda ocorrência de 12 é removida, e adicionamos 13 e 14 no mesmo índice. O array numbers agora seria [ 10, 11, 12, 13, 14, 15 ].
+
+
+
+Aqui, começamos com um array de números. 
+
+Em seguida, passamos o seguinte para splice(): o índice no qual começar a deletar os elementos (3), o número de elementos a serem deletados (1) e os argumentos restantes (13, 14) serão inseridos com início no mesmo índice. 
+
+Note que pode haver um número qualquer de elementos (separado por vírgulas) seguindo amountToDelete, cada um dos quais é inserido.
+
+
+
+Copiar itens de um array usando slice()
+
+O próximo método que abordaremos é slice(). 
+
+Em vez de modificar um array, slice() copia ou extrai um determinado número de elementos para um novo array, deixando o array em que o método é chamado inalterado. 
+
+slice() recebe apenas 2 parâmetros — o primeiro é o índice aonde começar a extração e o segundo é o índice no qual parar a extração (a extração ocorrerá até esse índice mas não o incluirá). 
+
+Considere isto:
+
+let weatherConditions = ['rain', 'snow', 'sleet', 'hail', 'clear'];
+
+
+
+let todaysWeather = weatherConditions.slice(1, 3);
+
+todaysWeather teria o valor ['snow', 'sleet'], enquanto weatherConditions ainda teria ['rain', 'snow', 'sleet', 'hail', 'clear'].
+
+Assim, criamos um novo array extraindo elementos de um array existente.
+
+
+
+Copiar um array com o operador spread
+
+Enquanto slice() nos permite sermos seletivos sobre quais elementos de um array copiar, entre várias outras tarefas úteis, o novo operador spread do ES6 nos permite facilmente copiar todos os elementos de um array, em ordem, com uma sintaxe simples e altamente legível. A sintaxe de spread é simplesmente essa: ...
+
+
+
+Na prática, podemos usar o operador "spread" para copiar um array assim:
+
+
+
+let thisArray = [true, true, undefined, false, null];
+
+let thatArray = [...thisArray];
+
+thatArray é igual a [true, true, undefined, false, null]. thisArray permanece inalterado e thatArray contém os mesmos elementos que thisArray.
+
+
+
+Combinar arrays com o operador spread
+
+Outra grande vantagem do operador spread é a capacidade de combinar arrays, ou de inserir todos os elementos de um array em outro, em qualquer índice. Com sintaxe mais tradicional, podemos concatenar arrays, mas isso só nos permite combinar arrays no final de um e no início de outro. A sintaxe do spread torna a seguinte operação extremamente simples:
+
+
+
+let thisArray = ['sage', 'rosemary', 'parsley', 'thyme'];
+
+
+
+let thatArray = ['basil', 'cilantro', ...thisArray, 'coriander'];
+
+thatArray teria o valor ['basil', 'cilantro', 'sage', 'rosemary', 'parsley', 'thyme', 'coriander'].
+
+
+
+Usando a sintaxe de spread, acabamos de conseguir uma operação que teria sido mais complexa e mais extensa se tivéssemos utilizado métodos tradicionais.
+
+
+
+Verificar a presença de um elemento com indexOf()
+
+Já que arrays podem ser alterados, ou mutados, a qualquer momento, não há garantia de onde um dado estará em um determinado array, ou se esse elemento sequer existe. Felizmente, o JavaScript nos fornece outro método integrado, indexOf(), que nos permite rapidamente e facilmente checar pela presença de um elemento em um array. indexOf() recebe um elemento como parâmetro, e quando chamado, retorna a posição, ou índice, daquele elemento, ou -1 se o elemento não existe no array.
+
+
+
+Por exemplo:
+
+
+
+let fruits = ['apples', 'pears', 'oranges', 'peaches', 'pears'];
+
+
+
+fruits.indexOf('dates');
+
+fruits.indexOf('oranges');
+
+fruits.indexOf('pears');
+
+indexOf('dates') retorna -1, indexOf('oranges') retorna 2 e indexOf('pears') retorna 1 (o primeiro índice no qual cada elemento existe).
+
+
+
+Iterar através de todos os itens de um array usando laços for
+
+Às vezes quando trabalhando com arrays, é muito útil ser capaz de iterar sobre cada item para encontrar um ou mais elementos que podemos precisar, ou para manipular o array baseado em qual item de dados atende a determinados critérios. JavaScript oferece diversos métodos integrados que fazem iteração sobre arrays de formas ligeiramente diferentes para alcançar resultados diferentes (como every(), forEach(), map(), entre outros). Porém, a técnica mais flexível e que nos oferece a maior capacidade de controle é o laço for simples.
+
+
+
+Considere o seguinte:
+
+
+
+function greaterThanTen(arr) {
+
+  let newArr = [];
+
+  for (let i = 0; i < arr.length; i++) {
+
+    if (arr[i] > 10) {
+
+      newArr.push(arr[i]);
+
+    }
+
+  }
+
+  return newArr;
+
+}
+
+
+
+greaterThanTen([2, 12, 8, 14, 80, 0, 1]);
+
+Usando o laço for, essa função itera o array, acessa cada elemento do array e submete-o a um teste simples que nós criamos. Dessa forma, nós determinamos de forma fácil e programática qual item é maior que 10, e retornamos um novo array, [12, 14, 80], contendo esses itens.
+
+
+
+
+
+Criar arrays multidimensionais complexos
+
+Excelente! Você acabou de aprender muito sobre arrays! Esta foi uma visão geral de nível bastante elevado, e há muito mais a aprender para trabalhar com arrays. Muitas dessas questões você verá em sessões posteriores. Mas antes de passarmos a examinar os objetos, vamos dar mais uma olhada e ver como os arrays podem se tornar um pouco mais complexos do que aquilo que vimos nos desafios anteriores.
+
+
+
+Uma das características mais poderosas ao pensar em arrays como estruturas de dados é que arrays podem conter, ou mesmo ser completamente compostos por outros arrays. Vimos arrays que contêm arrays em desafios anteriores, mas que são bastante simples. No entanto, os arrays podem conter uma profundidade infinita de arrays que podem conter outros arrays, cada um com seus próprios níveis arbitrários de profundidade, e assim por diante. Desta forma, um array pode muito rapidamente se tornar uma estrutura de dados muito complexa, conhecida como array multidimensional ou array aninhado. Considere o seguinte exemplo:
+
+
+
+let nestedArray = [
+
+  ['deep'],
+
+  [
+
+    ['deeper'], ['deeper'] 
+
+  ],
+
+  [
+
+    [
+
+      ['deepest'], ['deepest']
+
+    ],
+
+    [
+
+      [
+
+        ['deepest-est?']
+
+      ]
+
+    ]
+
+  ]
+
+];
+
+O array deep está aninhado com 2 níveis de profundidade. Os arrays deeper têm 3 níveis de profundidade. Os arrays deepest têm 4 níveis, e os deepest-est? têm 5 níveis.
+
+
+
+Embora este exemplo possa parecer complicado, este nível de complexidade não é inédito, ou ainda fora do normal, em se tratando de grandes quantidades de dados. Entretanto, nós ainda podemos facilmente acessar os níveis mais profundos de um array complexo com a notação de colchetes:
+
+
+
+console.log(nestedArray[2][1][0][0][0]);
+
+Isso exibe no console a string deepest-est?. Agora que sabemos onde esse pedaço de dado está, nós podemos redefini-lo se precisarmos:
+
+
+
+nestedArray[2][1][0][0][0] = 'deeper still';
+
+
+
+console.log(nestedArray[2][1][0][0][0]);
+
+Agora, ele mostra no console deeper still.
+
+
+
+'level 1',                   /* myNestedArray[0]             */
+
+  ['level 2'],	               /* myNestedArray[1][0]          */
+
+  [['level 3','deep']],	       /* myNestedArray[2][0][0]       */
+
+  [[['level 4','deeper']]],    /* myNestedArray[3][0][0][0]    */
+
+  [[[['level 5','deepest']]]]  /* myNestedArray[4][0][0][0][0] */
+
+
+
+Modificar um objeto aninhado dentro de um objeto
+
+Agora vamos dar uma olhada em um objeto ligeiramente mais complexo. Propriedades de objeto podem ser aninhadas para uma profundidade arbitrária e os seus valores podem ser de qualquer tipo de dado suportado pelo JavaScript, incluindo arrays e até mesmo objetos. Considere o seguinte:
+
+
+
+let nestedObject = {
+
+  id: 28802695164,
+
+  date: 'December 31, 2016',
+
+  data: {
+
+    totalUsers: 99,
+
+    online: 80,
+
+    onlineStatus: {
+
+      active: 67,
+
+      away: 13,
+
+      busy: 8
+
+    }
+
+  }
+
+};
+
+nestedObject possui três propriedades: id (o valor é um número), date (o valor é uma string) e data(o valor é um objeto com sua estrutura aninhada). Enquanto estruturas podem se tornar rapidamente complexas, nós ainda podemos usar as mesmas notações para acessar as informações que precisamos. Para atribuir o valor 10 para a propriedade busy do objeto aninhado onlineStatus, nós usamos a notação de ponto para referenciar a propriedade:
+
+
+
+nestedObject.data.onlineStatus.busy = 10;
+
+
+
+Verificar se um objeto tem uma propriedade
+
+Agora podemos adicionar, modificar e remover as chaves dos objetos. Mas e se apenas quiséssemos saber se um objeto tem uma propriedade específica? O JavaScript nos fornece duas maneiras diferentes de fazer isso. Um usa o método hasOwnProperty() e o outro usa a palavra-chave in. Se tivermos um objeto users com uma propriedade de Alan, podemos verificar a sua presença de qualquer uma das seguintes maneiras:
+
+
+
+users.hasOwnProperty('Alan');
+
+'Alan' in users;
+
+Ambos retornariam true.
+
+
+
+Iterar através das chaves de um objeto com a declaração for...in
+
+Às vezes, você precisa iterar através de todas as chaves dentro de um objeto. Você pode usar um laço for... in para fazer isso. O laço for...in tem esta aparência:
+
+
+
+const refrigerator = {
+
+  'milk': 1,
+
+  'eggs': 12,
+
+};
+
+
+
+for (const food in refrigerator) {
+
+  console.log(food, refrigerator[food]);
+
+}
+
+Este código registra milk 1 e eggs 12, com cada par de chave-valor em sua própria linha.
+
+
+
+Definimos a variável food no início do laço e essa variável foi definida com cada uma das chaves do objeto em cada iteração, resultando na impressão do nome de cada comida no console.
+
+
+
+Observação: objetos não mantém uma ordem para as chaves armazenadas como arrays fazem. Portanto, a posição de uma chave em um objeto, ou a ordem relativa na qual ela aparece, é irrelevante quando referenciando ou acessando aquela chave.
+
+
+
+Gerar um array de todas as chaves de objeto com Object.keys()
+
+Também podemos gerar um array o qual contém todas as chaves armazenadas em um objeto com o método Object.keys(). Esse método recebe um objeto como argumento e retorna um array de strings que representam cada propriedade no objeto. Novamente, não haverá uma ordem específica para as entradas no array.
+
