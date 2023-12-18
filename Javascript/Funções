@@ -1,0 +1,124 @@
+Escrever JavaScript reutilizável com funções
+
+function functionName() {
+
+  console.log("mensagem");
+
+Você pode chamar ou invocar essa função ao usar seu nome seguido de parênteses, da seguinte forma: functionName(); 
+
+Cada vez que a função é chamada, imprimirá no console a mensagem Hello World. 
+
+Todo o código entre as chaves será executado toda vez que uma função for chamada.
+
+
+
+Passar valores para funções com argumentos
+
+Parâmetros são variáveis que atuam como espaços reservados para os valores que são passados para uma função, quando ela é chamada.
+
+Quando uma função é definida, normalmente ela é definida junto com um ou mais parâmetros.
+
+Os valores reais que são entradas de (ou "passadas" para) uma função quando ela é chamada são conhecidos como argumentos.
+
+Passar valores para funções com argumentos - function testFun(param1, param2) {
+
+  console.log(param1, param2);
+
+}
+
+
+
+Retornar um valor de uma função com return
+
+Nós podemos passar valores para uma função com argumentos. 
+
+Você pode usar uma instrução return para enviar um valor para fora de uma função.
+
+
+
+Exemplo
+
+function plusThree(num) {
+
+  return num + 3;
+
+}
+
+const answer = plusThree(5);
+
+answer tem o valor de 8.
+
+plusThree recebe um argumento para num e retorna um valor igual a num + 3.
+
+
+
+Conhecer o escopo global e funções
+
+Em JavaScript, escopo refere-se à visibilidade de variáveis. 
+
+Variáveis que são definidas fora de um bloco de função tem o escopo Global. Isso significa que elas podem ser vistas em qualquer lugar no seu código JavaScript.
+
+Variáveis que são declaradas sem a palavra-chave let ou const são automaticamente criadas no escopo global.
+
+Variáveis que são declaradas dentro de uma função, assim como parâmetros das funções, possuem escopo local. Isso significa que elas são visíveis apenas dentro da função.
+
+É possível ter as variáveis local e global com o mesmo nome. Quando você faz isso, a variável local tem precedência sobre a variável global.
+
+
+
+Entender o valor undefined retornado de uma função
+
+Uma função pode incluir a instrução return mas ela não precisa fazer isso. No caso de a função não ter uma instrução return, quando você a chamar, a função processa o código interno, mas o valor retornado é undefined.
+
+
+
+Exemplo
+
+let sum = 0;
+
+function addSum(num) {
+
+  sum = sum + num;
+
+}
+
+addSum(3);
+
+addSum é uma função sem uma instrução return. 
+
+A função vai alterar a variável global sum, mas o valor retornado da função é undefined.
+
+
+
+Atribuir com o valor retornado
+
+Se você se lembrar de nossa discussão sobre como armazenar valores com o operador de atribuição, tudo à direita do sinal de igual é resolvido antes de o valor ser atribuído. Isso significa que podemos pegar o valor de retorno de uma função e atribuí-lo a uma variável.
+
+Assuma que temos uma função definida chamada sum, que soma dois números.
+
+ourSum = sum(5, 12);
+
+Chamar a função sum com os argumentos 5 e 12 produz um valor de retorno de 17. Esse valor de retorno é atribuído à variável ourSum.
+
+
+
+Retornar o padrão inicial para funções
+
+Quando uma instrução return é alcançada, a execução da função atual para e retorna o código para o local da chamada da função.
+
+Exemplo
+
+function myFun() {
+
+  console.log("Hello");
+
+  return "World";
+
+  console.log("byebye")
+
+}
+
+myFun();
+
+O código acima exibirá no console a string Hello, e retorna a string World. A string byebye nunca vai ser exibida no console, porque a função termina na instrução return.
+
